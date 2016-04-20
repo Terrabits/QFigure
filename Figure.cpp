@@ -2,12 +2,14 @@
 #include "ui_Figure.h"
 
 
-// RsaToolbox
-#include "General.h"
-using namespace RsaToolbox;
-
 // Qt
+#include <QGridLayout>
+#include <QPalette>
+#include <QPixmap>
 #include <QScopedPointer>
+
+// Need to replace:
+// RsaToolbox::linearSpacing()
 
 
 uint Figure::_figureIndex = 1;
@@ -82,20 +84,20 @@ QCustomPlot* Figure::plot(uint row, uint column) {
         return(NULL);
     return((QCustomPlot*)item->widget());
 }
-void Figure::addTrace(QRowVector y, Qt::GlobalColor color, QString name) {
-    QRowVector x;
+void Figure::addTrace(QVector<double> y, Qt::GlobalColor color, QString name) {
+    QVector<double> x;
     linearSpacing(x, 0, y.size()-1.0, y.size());
     addTrace(x, y, QPen(color), name);
 }
-void Figure::addTrace(QRowVector x, QRowVector y, Qt::GlobalColor color, QString name) {
+void Figure::addTrace(QVector<double> x, QVector<double> y, Qt::GlobalColor color, QString name) {
     addTrace(x, y, QPen(color), name);
 }
-void Figure::addTrace(QRowVector y, QPen pen, QString name) {
-    QRowVector x;
+void Figure::addTrace(QVector<double> y, QPen pen, QString name) {
+    QVector<double> x;
     linearSpacing(x, 0, y.size()-1.0, y.size());
     addTrace(x, y, pen, name);
 }
-void Figure::addTrace(QRowVector x, QRowVector y, QPen pen, QString name) {
+void Figure::addTrace(QVector<double> x, QVector<double> y, QPen pen, QString name) {
     QCustomPlot* plot = this->plot(_i, _j);
     uint index = plot->graphCount();
     plot->addGraph();

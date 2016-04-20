@@ -2,23 +2,17 @@
 #define FIGURE_H
 
 
-// RsaToolbox
-#include "Definitions.h"
+// Qt
+#include <QDialog>
+#include <QVector>
 
 // QCustomPlot
 #include "qcustomplot.h"
 
-// Qt
-#include <QWidget>
-#include <QDialog>
-#include <QGridLayout>
 
 namespace Ui {
 class Figure;
 }
-
-namespace RsaToolbox {
-
 class Figure : public QDialog
 {
     Q_OBJECT
@@ -36,10 +30,10 @@ public:
 
     QCustomPlot* plot(uint row, uint column);
     void select(uint row, uint column);
-    void addTrace(RsaToolbox::QRowVector y, Qt::GlobalColor color = Qt::black, QString name = "");
-    void addTrace(RsaToolbox::QRowVector y, QPen pen, QString name = "");
-    void addTrace(RsaToolbox::QRowVector x, RsaToolbox::QRowVector y, Qt::GlobalColor color = Qt::black, QString name = "");
-    void addTrace(RsaToolbox::QRowVector x, RsaToolbox::QRowVector y, QPen pen, QString name = "");
+    void addTrace(QVector<double> y, Qt::GlobalColor color = Qt::black, QString name = "");
+    void addTrace(QVector<double> y, QPen pen, QString name = "");
+    void addTrace(QVector<double> x, QVector<double> y, Qt::GlobalColor color = Qt::black, QString name = "");
+    void addTrace(QVector<double> x, QVector<double> y, QPen pen, QString name = "");
 
     bool saveBmp(QString filename, int quality = -1);
     bool saveJpg(QString filename, int quality = -1);
@@ -69,6 +63,6 @@ private:
     void _addColumns(uint columns);
     void _deleteColumns(uint columns);
 };
-}
+
 
 #endif // FIGURE_H
